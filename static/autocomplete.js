@@ -13,7 +13,7 @@ var options = {
                 enabled: true
             }
         },
-        requestDelay: 1000
+        requestDelay: 500
 
     };
 
