@@ -1,0 +1,30 @@
+{% extends 'layout.html' %} {% block body %}
+
+
+<div class="row">
+    <div class="center col s12">
+        <div class="card red darken-3 hoverable">
+            <div class="card-content white-text">
+                <span class="center card-title"><h3>Enter company stock</h3></span>
+                <div class="row">
+                    <form action='.' method="POST" class="col s12">
+                        <div class="row">
+                            <div class="input-field center">
+                                <input type="text" name="stock" placeholder="Company stock" id="stock" required>
+                            </div>
+                        </div>
+                        <button class="btn light-blue darken-1 waves-effect waves-light waves-red" type="submit"
+                                name="action">Submit<i class="material-icons right">send</i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='jquery.easy-autocomplete.min.js')}}"></script>
+<script src="{{ url_for('static', filename='autocomplete.js')}}"></script>
+{% endblock %}

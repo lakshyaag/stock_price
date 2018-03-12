@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='materialize.min.css')}}">
+    <!--Import fonts-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts_load.css')}}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='easy-autocomplete.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery.lineProgressbar.min.css')}}">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Stock Search</title>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-2.1.1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='materialize.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery.lineProgressbar.js')}}"></script>
+
+</head>
+
+<body>
+<main>
+    {% block body %}{% endblock %}
+    <div class="fixed-action-btn toolbar">
+        <a class="btn-floating btn-large red darken-3 z-depth-4 tooltipped" data-position="top"
+           data-tooltip="Options" id="menu">
+            <i class="large material-icons">list</i>
+        </a>
+        <ul>
+            <li class="waves-effect waves-light"><a href="https://github.com/lakshyaagrwal/music_web"
+                                                    target="_blank" class="tooltipped" data-position="top"
+                                                    data-tooltip="GitHub"><i class="material-icons">code</i></a></li>
+            <li class="waves-effect waves-light"><a href="https://fb.com/lakshyaag" target="_blank" class="tooltipped"
+                                                    data-position="top"
+                                                    data-tooltip="Facebook"><i
+                    class="material-icons">thumbs_up_down</i></a></li>
+            <li class="waves-effect waves-light"><a href="/" class="tooltipped" data-position="top"
+                                                    data-tooltip="Go Back"><i
+                    class="material-icons">arrow_back</i></a></li>
+        </ul>
+    </div>
+</main>
+
+<footer class="page-footer red darken-1">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Stock Search</h5>
+                <p class="grey-text text-lighten-4">Made using Python and Flask, with &hearts;.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3"
+                           href="https://github.com/lakshyaagrwal/music_web">GitHub</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/lakshyaag">Facebook</a></li>
+                    <li><a class="grey-text text-lighten-3" href="http://twitter.com/lakshyaag">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © Lakshya Agarwal
+        </div>
+    </div>
+</footer>
+<!--Import jQuery before materialize.js-->
+
+
+{% block script %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+    <h3>{{companyName}}</h3>
+    <p>{{latestPrice}}</p>
+    <code>{{symbol}}</code>
+    <h5>Change: {{change}}</h5>
+    <img src = {{logo}} class="materialboxed" />
+</div>
+
+<div class="container">
+    {% for article in news %}
+    <a href = {{article.url}}><h5>{{article.headline}}</h5></a>
+    {% endfor %}
+</div>
+
+<div class="container">
+    <a href = {{website}}>{{website}}</a>
+    <h6>{{CEO}}</h6>
+    <p>{{description}}<p>
+</div>
+
+<div class="container">
+    <p>Latest EPS: {{latestEPS}}</p>
+    <p>5 Day Change: {{day5Change}}</p>
+    <p>3 Month Change: {{month3Change}}</p>
+    <p>1 Year Change: {{year1Change}}</p>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='matchheight.js')}}"></script>
+<script src="{{ url_for('static', filename='script.js')}}"></script>
+{% endblock %}
