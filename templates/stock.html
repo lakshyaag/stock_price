@@ -1,31 +1,87 @@
 {% extends 'layout.html' %} {% block body %}
 <div class="container">
-    <h3>{{companyName}}</h3>
-    <p>{{latestPrice}}</p>
-    <code>{{symbol}}</code>
-    <h5>Change: {{change}}</h5>
-    <img src = {{logo}} class="materialboxed" />
-</div>
 
-<div class="container">
-    {% for article in news %}
-    <a href = {{article.url}}><h5>{{article.headline}}</h5></a>
-    {% endfor %}
-</div>
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <div class="card horizontal red darken-3 hoverable center-align">
+                <div class="card-image valign-wrapper">
+                    <img src={{logo}} class="responsive-img"/>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content white-text center-align">
+                        <span class="card-title"><h3>{{companyName}}</h3></span>
+                        <code><h4>{{symbol}}</h4></code>
+                        <h3>{{latestPrice}} USD</h3>
+                        {% if change.startswith('-') %}
+                        <h4 style="color: red"><i class="material-icons">arrow_downward</i>{{change}}</h4>
+                        {% else %}
+                        <h4 style="color: green"><i class="material-icons">arrow_upward</i>{{change}}</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="container">
-    <a href = {{website}}>{{website}}</a>
-    <h6>{{CEO}}</h6>
-    <p>{{description}}<p>
-</div>
+        <div class="col s12 m6 l6">
+            <div class="card red darken-3">
+                <div class="card-content white-text">
+                    <span class="card-title center-align">Summary</span>
+                    <table class="centered">
+                        <tbody>
+                        <tr>
+                            <td>Volume</td>
+                            <td>{{volume}}</td>
+                        </tr>
+                        <tr>
+                            <td>Latest EPS</td>
+                            <td>{{latestEPS}}</td>
+                        </tr>
+                        <tr>
+                            <td>5 Day Change</td>
+                            <td>{{day5Change}}</td>
+                        </tr>
+                        <tr>
+                            <td>3 Month Change</td>
+                            <td>{{month3Change}}</td>
+                        </tr>
+                        <tr>
+                            <td>1 Year Change</td>
+                            <td>{{year1Change}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="container">
-    <p>Latest EPS: {{latestEPS}}</p>
-    <p>5 Day Change: {{day5Change}}</p>
-    <p>3 Month Change: {{month3Change}}</p>
-    <p>1 Year Change: {{year1Change}}</p>
-</div>
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <div class="card red darken-4">
+                <div class="card-content white-text">
+                    <span class="card-title center-align">About the company</span>
+                    <h4>CEO: {{CEO}}</h4>
+                    <p class="flow-text">{{description}}</p>
+                    <h5>Visit: <a href={{website}}>{{website}}</a></h5>
+                </div>
+            </div>
+        </div>
 
+        <div class="col s12 m6 l6">
+            <div class="card red darken-4">
+                <div class="card-content white-text">
+                    <span class="card-title center-align">News</span>
+                    {% for article in news %}
+                    <a href={{article.url}} target="_blank" style="color: inherit"><h6 class="flow-text">
+                        {{article.headline}}</h6></a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 {% endblock %}
 
 {% block script %}

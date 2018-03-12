@@ -22,11 +22,11 @@ def submit_data():
     key_stats = data['key_stats']
 
     return render_template('stock.html', companyName=stock_quote['companyName'], latestPrice=stock_quote['latestPrice'],
-                           symbol=stock_quote['symbol'], change=stock_quote['change'], logo=stock_quote['logo'],
-                           news=stock_news, website=company_data['website'], CEO=company_data['CEO'],
-                           description=company_data['description'], latestEPS=key_stats['latestEPS'],
-                           day5Change=key_stats['day5Change'], month3Change=key_stats['month3Change'],
-                           year1Change=key_stats['year1Change'])
+                           symbol=stock_quote['symbol'], change=stock_quote['change'], volume=stock_quote['volume'],
+                           logo=stock_quote['logo'], news=stock_news, website=company_data['website'],
+                           CEO=company_data['CEO'], description=company_data['description'],
+                           latestEPS=key_stats['latestEPS'], day5Change=key_stats['day5Change'],
+                           month3Change=key_stats['month3Change'], year1Change=key_stats['year1Change'])
 
 
 if __name__ == "__main__":

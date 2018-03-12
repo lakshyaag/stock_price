@@ -21,6 +21,7 @@ def run(stock):
         "latestPrice": quote['latestPrice'],
         "symbol": quote['symbol'],
         "change": "{0:.2%}".format(quote['changePercent']),
+        "volume":"{:,}".format(quote['latestVolume']),
         "logo": get(stock, 'logo')['url']
     }
 
