@@ -12,7 +12,7 @@ def form():
 
 @app.route('/', methods=['POST'])
 def submit_data():
-    stock = request.form['stock']
+    stock = request.form['stock_code']
 
     data = Stock.run(stock)
 

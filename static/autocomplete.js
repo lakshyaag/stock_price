@@ -1,17 +1,20 @@
-MOVIE_URL = "https://api.themoviedb.org/3/search/movie?api_key=1ed4e17d7cb07549e8a7884c5dde6577&&query=";
-
-
 var options = {
-        url: function(name){
-            console.log(MOVIE_URL + name);
-            return MOVIE_URL + name;
-        },
+        url: "https://api.iextrading.com/1.0/ref-data/symbols",
+        getValue: "name",
+        theme: "blue-light",
+        list: {
+            onSelectItemEvent: function(){
+                var value = $('#stock').getSelectedItemData().symbol;
+                console.log(value)
+                $('#stock_code').val(value);
 
-        listLocation: "results",
-        getValue: "title"
+            },
+            match: {
+                enabled: true
+            }
+        },
+        requestDelay: 1000
+
     };
 
-
-console.log(options.getValue)
-
-$("#title").easyAutocomplete(options);
+$("#stock").easyAutocomplete(options);
