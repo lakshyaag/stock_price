@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
 
-import stock as Stock
+import stock as stock
+
 app = Flask(__name__)
 app.debug = False
+
 
 @app.route('/')
 def form():
@@ -11,9 +13,9 @@ def form():
 
 @app.route('/', methods=['POST'])
 def submit_data():
-    stock = request.form['stock_code']
+    stock_n = request.form['stock_code']
 
-    data = Stock.run(stock)
+    data = stock.run(stock_n)
 
     stock_quote = data['stock_quote']
     stock_news = data['stock_news']

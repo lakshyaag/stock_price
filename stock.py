@@ -1,10 +1,8 @@
-import requests
-
 import pandas as pd
-
-from bokeh.plotting import Figure
-from bokeh.models import HoverTool, ColumnDataSource
+import requests
 from bokeh.embed import components
+from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.plotting import Figure
 
 
 # get function
@@ -18,7 +16,6 @@ URL_ENDPOINT = "https://api.iextrading.com/1.0/stock/{}/{}"
 
 # run function
 def run(stock):
-
     # Get stock
     quote = get(stock, "quote")
     stock_quote = {
@@ -26,7 +23,7 @@ def run(stock):
         "latestPrice": quote['latestPrice'],
         "symbol": quote['symbol'],
         "change": "{0:.2%}".format(quote['changePercent']),
-        "volume":"{:,}".format(quote['latestVolume']),
+        "volume": "{:,}".format(quote['latestVolume']),
         "logo": get(stock, 'logo')['url']
     }
 
@@ -77,7 +74,7 @@ def run(stock):
         ('Date', '@label'),
         ('Open', '$@open{%0.2f}'),
         ('High', '$@high{%0.2f}'),
-        ('Low',  '$@low{%0.2f}'),
+        ('Low', '$@low{%0.2f}'),
         ('Close', '$@close{%0.2f}')
     ]
     hover.formatters = {
