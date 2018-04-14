@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
 
 import stock as Stock
-
 app = Flask(__name__)
-
+app.debug = False
 
 @app.route('/')
 def form():
@@ -26,7 +25,13 @@ def submit_data():
                            logo=stock_quote['logo'], news=stock_news, website=company_data['website'],
                            CEO=company_data['CEO'], description=company_data['description'],
                            latestEPS=key_stats['latestEPS'], day5Change=key_stats['day5Change'],
-                           month3Change=key_stats['month3Change'], year1Change=key_stats['year1Change'])
+                           month3Change=key_stats['month3Change'], year1Change=key_stats['year1Change'],
+                           chart_script=data['chart_script'], chart_div=data['chart_div'])
+
+
+@app.errorhandler(500)
+def error():
+    return render_template('error.html')
 
 
 if __name__ == "__main__":

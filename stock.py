@@ -1,10 +1,15 @@
 import requests
-from pprint import pprint
+
+import pandas as pd
+
+from bokeh.plotting import Figure
+from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.embed import components
 
 
 # get function
 def get(search, query):
-    return requests.get(URL_ENDPOINT.format(search, query)).json()
+    return requests.get(URL_ENDPOINT.format(str(search).lower(), query)).json()
 
 
 # Define variables
@@ -53,9 +58,43 @@ def run(stock):
         "year1Change": "{0:.2%}".format(stats['year1ChangePercent']),
     }
 
+    # Get chart stats and make bokeh
+    chart = get(stock, "chart/5y")
+    chart = pd.DataFrame(chart)
+    chart = chart.set_index(pd.to_datetime(chart.date))
+
+    chart_cds = ColumnDataSource(chart)
+
+    p = Figure(x_axis_label="Date", y_axis_label="Price", x_axis_type="datetime", title="{} - 5Y Graph".format(stock))
+    p.toolbar.active_scroll = 'auto'
+    p.background_fill_color = '#8FBC8F'
+    p.background_fill_alpha = 0.2
+
+    p.line(x='date', y='close', source=chart_cds, line_width=1, color='#b71c1c')
+
+    hover = HoverTool(mode='vline')
+    hover.tooltips = [
+        ('Date', '@label'),
+        ('Open', '$@open{%0.2f}'),
+        ('High', '$@high{%0.2f}'),
+        ('Low',  '$@low{%0.2f}'),
+        ('Close', '$@close{%0.2f}')
+    ]
+    hover.formatters = {
+        'open': 'printf',
+        'high': 'printf',
+        'low': 'printf',
+        'close': 'printf'
+    }
+    p.add_tools(hover)
+
+    script, div = components(p)
+
     return {
         "stock_quote": stock_quote,
         "stock_news": stock_news,
         "company_data": company_data,
-        "key_stats": key_stats
+        "key_stats": key_stats,
+        "chart_script": script,
+        "chart_div": div
     }

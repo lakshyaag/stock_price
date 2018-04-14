@@ -1,5 +1,9 @@
+bokeh==0.12.15
 Flask==0.12.2
 gunicorn==19.7.1
 httplib2==0.10.3
 Jinja2==2.9.6
+matplotlib==2.2.2
+numpy==1.14.2
+pandas==0.22.0
 requests==2.18.1
