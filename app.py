@@ -28,7 +28,8 @@ def submit_data():
                            CEO=company_data['CEO'], description=company_data['description'],
                            latestEPS=key_stats['latestEPS'], day5Change=key_stats['day5Change'],
                            month3Change=key_stats['month3Change'], year1Change=key_stats['year1Change'],
-                           chart_script=data['chart_script'], chart_div=data['chart_div'])
+                           chart_script=data['chart_script'], chart_div=data['chart_div'], cdl_s=data['s'],
+                           cdl_d=data['d'])
 
 
 @app.errorhandler(500)

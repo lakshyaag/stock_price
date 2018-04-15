@@ -57,17 +57,19 @@ def run(stock):
 
     # Get chart stats and make bokeh
     chart = get(stock, "chart/5y")
+    chart_cds_df = get(stock, 'chart/1m')
     chart = pd.DataFrame(chart)
     chart = chart.set_index(pd.to_datetime(chart.date))
 
     chart_cds = ColumnDataSource(chart)
 
-    p = Figure(x_axis_label="Date", y_axis_label="Price", x_axis_type="datetime", title="{} - 5Y Graph".format(stock))
-    p.toolbar.active_scroll = 'auto'
-    p.background_fill_color = '#8FBC8F'
-    p.background_fill_alpha = 0.2
+    p = Figure(x_axis_label="Date", y_axis_label="Price", x_axis_type="datetime", title="{} - 5Y Graph".format(stock),
+               sizing_mode='scale_width')
+    # p.background_fill_color = '#8FBC8F'
+    # p.background_fill_alpha = 0.2
+    p.grid.grid_line_alpha = 0.3
 
-    p.line(x='date', y='close', source=chart_cds, line_width=1, color='#b71c1c')
+    p.line(x='date', y='close', source=chart_cds, line_width=1, color='#F2583E')
 
     hover = HoverTool(mode='vline')
     hover.tooltips = [
@@ -85,6 +87,26 @@ def run(stock):
     }
     p.add_tools(hover)
 
+    cdl = Figure(x_axis_label="Date", y_axis_label="Price", x_axis_type="datetime",
+                 title="{} - Candlestick".format(stock), sizing_mode='scale_width')
+
+    chart_cds_df = pd.DataFrame(chart_cds_df)
+    chart_cds_df = chart_cds_df.set_index(pd.to_datetime(chart_cds_df.date))
+
+    inc = chart_cds_df.close > chart_cds_df.open
+    dec = chart_cds_df.open > chart_cds_df.close
+    w = 12 * 60 * 60 * 1000
+
+    cdl.segment(chart_cds_df.index, chart_cds_df.high, chart_cds_df.index, chart_cds_df.low, color='black')
+    cdl.vbar(chart_cds_df.index[inc], w, chart_cds_df.open[inc], chart_cds_df.close[inc], fill_color='#D5E1DD',
+             line_color='black')
+    cdl.vbar(chart_cds_df.index[dec], w, chart_cds_df.open[dec], chart_cds_df.close[dec], fill_color='#F2583E',
+             line_color='black')
+
+    cdl.grid.grid_line_alpha = 0.3
+
+    cdl_s, cdl_div = components(cdl)
+
     script, div = components(p)
 
     return {
@@ -93,5 +115,7 @@ def run(stock):
         "company_data": company_data,
         "key_stats": key_stats,
         "chart_script": script,
-        "chart_div": div
+        "chart_div": div,
+        "s": cdl_s,
+        "d": cdl_div
     }
